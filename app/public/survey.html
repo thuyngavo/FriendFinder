@@ -188,20 +188,21 @@
 <!---------------modal structure to display result pop up----------------->
 <!------------------------------------------------------------------------>
 
-    <div class="ui modal">
+    <div class="ui modal" id=modaldiv>
+        <i class = "close icon"></i>
         <div class="header">Best Match</div>
             <!-- match name -->
             <div class="content">
-                <h5 id="matchName"></h5>
+                <div class="matchName" id="matchName"></div>
             </div> 
-            <br>
+            <br> 
             <!-- match photo -->
             <div class="image content">
                 <img class="image">
                     <div class="description">
                         <img id="matchPhoto" src="" alt="Profile Image" width = 250px>
                     </div>
-            <br>
+            <br> 
             <!-- close button -->
             <div class = "actions">
                 <div class = "ui button">Close</div>
@@ -209,35 +210,59 @@
         </div>        
     </div>
 
+    <!--
+    <div class="ui container">
+    <div class="ui modal" id=modal>
+        <i class="close icon"></i>
+        <div class="header">Best Match</div>
+            <div class="image content">
+              <div class="image">
+                    <img id="matchPhoto" src="" alt="Profile Image" width = 250px>
+              </div>
+              <div class="description">
+                    <h5 id="matchName"></h5>
+              </div>
+            </div>
+            <div class="actions">
+              <div class="ui button">Close</div>
+            </div>
+          </div>
+          </div>
+        -->
 <!------------------------------------------------------------------------>    
-<!----------- javascript to grab useer input and send to server----------->
+<!------------ javascript to grab user input and send to server----------->
 <!------------------------------------------------------------------------>
 
 <script type="text/javascript">
 $(document).ready(function() {
+    
+    // hide modal
+    //$("#modal").modal("show");
+
     // on click function
     $("#submitbtn").on("click", function() {
-        event.preventDefault();
+        $("#modaldiv").modal("show");
+        //event.preventDefault();
         //form validation
-        // function validateForm() {
-        //     var isValid = true;
-        //     $(".validate").each(function() {
-        //         if ($(this).val() === ""){
-        //             isValid = false;
-        //         }
-        //     });
-        //     $(".browser-default").each(function() {
-        //         if ($(this).val() === ""){
-        //             isValid = false;
-        //         }
-        //     });
-        //     return isValid;
-        // }
+        function validateForm() {
+            var isValid = true;
+            $(".validate").each(function() {
+                if ($(this).val() === ""){
+                    isValid = false;
+                }
+            });
+            $(".browser-default").each(function() {
+                if ($(this).val() === ""){
+                    isValid = false;
+                }
+            });
+            return isValid;
+        }
 
 //=========================================================================
 // requires users to answer all questions
 //=========================================================================
-        //if (validateForm() == true) {
+        if (validateForm() == true) {
             // grabs user input
             var userInput = {
                 name: $("#name").val().trim(),
@@ -256,18 +281,19 @@ $(document).ready(function() {
                 ]
             };
 
-            $.post("/api/friends", userInput).done(function(data) {
+            //$.post("/api/friends", userInput).done(function(data) {
 
             //Grabs current URL of website
-            //var currentURL = window.location.origin;
+            var currentURL = window.location.origin;
             //AJAX posts the data to friends API.
-            //$.post(currentURL + "/api/friends", userInput, function(data) {
+            $.post(currentURL + "/api/friends", userInput, function(data) {
                 //Grab the result from the AJAX post so that the best match's name and photo are displayed.
                 $("#matchName").text(data.name);
                 $("#matchPhoto").attr("src", data.profilePic);
             //});
                 // display modal
-                $(".large.modal").modal("show");
+                //$("#modal").modal("show");
+                //$(".ui.modal").modal("show");
                 
                 //clear form after submission
                 $("#name").val("");
@@ -283,11 +309,12 @@ $(document).ready(function() {
                 $("#q9").val("");
                 $("#q10").val("");
             });
-        //} else {
-        //   alert("Please answer all questions before submitting survey!")
-        //}
+        } else {
+           alert("Please answer all questions before submitting survey!")
+        }
     });
 });
+
 </script>
 </body>
 

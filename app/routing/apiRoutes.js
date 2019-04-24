@@ -1,14 +1,13 @@
-//======================================================
+//============================================================
 // requiring app dependencies 
 // import data from friends.js
-//======================================================
+//============================================================
 
-var path = require ("path");
 var friends = require("../data/friends.js");
 
-//======================================================
+//============================================================
 // exporting api route
-//======================================================
+//============================================================
 
 module.exports = function(app){
 
@@ -20,8 +19,6 @@ module.exports = function(app){
     // POST : adds new friend entry
     app.post("/api/friends", function (req, res) {
            
-        
-            
         // variables to hold user input
         var userInput = req.body;
         var userResponses = userInput.scores;
@@ -47,7 +44,7 @@ module.exports = function(app){
         }
 
             // push user data to the friends.js
-        friends.push(userData);
+        friends.push(userInput);
 
         res.json(matchName + matchPhoto);
         

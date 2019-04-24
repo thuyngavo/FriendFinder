@@ -20,7 +20,6 @@ module.exports = function(app){
     // variables to grab and store scores to compare with friends in friends array
     var newFriendScores = req.body.scores;
     var scoresArray = [];
-    var friendCount = 0;
     var bestMatch = 0;
 
     // loops through all current friends in list

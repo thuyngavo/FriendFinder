@@ -187,30 +187,28 @@
 <!------------------------------------------------------------------------>    
 <!---------------modal structure to display result pop up----------------->
 <!------------------------------------------------------------------------>
-    <div class="ui container" id="container">
-        <div class = "container">
-            <div class="ui placeholder segment">
-                <div class="ui center aligned segment">
-                    <div class="ui modal">
-                        <div class="header">Header</div>
-                        <div class="content">
-                            <h4>Here is your new friend!</h4>
-                            <h5 id="matchName"></h5>
-                        </div>
-                        <div class="image content">
-                            <img class="image">
-                                <div class="description">
-                                    <img id="matchPic" src="" alt="No Image" width = 250px>
-                                </div>
-                            <div class = "actions">
-                                <div class = "ui button">Close</div>
-                            </div>
-                        </div>        
+
+    <div class="ui modal">
+        <div class="header">Best Match</div>
+            <!-- match name -->
+            <div class="content">
+                <h5 id="matchName"></h5>
+            </div> 
+            <br>
+            <!-- match photo -->
+            <div class="image content">
+                <img class="image">
+                    <div class="description">
+                        <img id="matchPic" src="" alt="Profile Image" width = 250px>
                     </div>
-                </div>
+            <br>
+            <!-- close button -->
+            <div class = "actions">
+                <div class = "ui button">Close</div>
             </div>
-        </div>
+        </div>        
     </div>
+
 
 <!-- Grabs information and sends it to server -->
 <script type="text/javascript">
@@ -262,7 +260,8 @@ $(document).ready(function() {
                 $("#matchPic").attr("src", data.profilePic);
             });
             // Show the modal with the best match
-                $('.modal').modal();
+            $('.large.modal').modal('show');
+            
             //clear form after submission
             $("#name").val("");
             $("#photo").val("");
@@ -277,7 +276,7 @@ $(document).ready(function() {
             $("#q9").val("");
             $("#q10").val("");
         } else {
-            alert("Please fill out ALL fields before submitting survey!")
+            alert("Please answer all questions before submitting survey!")
         }
         // return false;
     });

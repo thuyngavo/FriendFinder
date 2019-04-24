@@ -7,9 +7,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <!--Link jQuery-->
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
         <!-- Link SemanticUI CSS -->
-        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css' />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css" />
         <!-- Link Stylesheet -->
         <link rel="stylesheet" href="styles.css">
     
@@ -160,7 +160,7 @@
 <!------------------------------------------------------------------------>    
 <!-----------------------------submit button------------------------------>
 <!------------------------------------------------------------------------>
-                <div class="ui animated button" tabindex="0">
+                <div class="ui animated button" tabindex="0" id=submitbtn>
                         <div class="visible content">Submit</div>
                         <div class="hidden content">
                             <i class="right arrow icon"></i>
@@ -174,8 +174,8 @@
 <!------------------------------------------------------------------------>    
 <!-------------------------------footer----------------------------------->
 <!------------------------------------------------------------------------>
-            <div class='col s4'>
-                <p><a href='/api/friends'>API Friends List</a> | <a href='https://github.com/thuyngavo/friendFinder' target='_blank'>GitHub Repo</a></p>
+            <div class="col s4">
+                <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/thuyngavo/friendFinder" target="_blank">GitHub Repo</a></p>
             </div>
 
         </div>
@@ -199,7 +199,7 @@
             <div class="image content">
                 <img class="image">
                     <div class="description">
-                        <img id="matchPic" src="" alt="Profile Image" width = 250px>
+                        <img id="matchPhoto" src="" alt="Profile Image" width = 250px>
                     </div>
             <br>
             <!-- close button -->
@@ -209,76 +209,83 @@
         </div>        
     </div>
 
+<!------------------------------------------------------------------------>    
+<!----------- javascript to grab useer input and send to server----------->
+<!------------------------------------------------------------------------>
 
-<!-- Grabs information and sends it to server -->
 <script type="text/javascript">
 $(document).ready(function() {
-    $("#submitBtn").on("click", function() {
+    // on click function
+    $("#submitbtn").on("click", function() {
+        event.preventDefault();
         //form validation
-        function validateForm() {
-            var isValid = true;
-            $('.validate').each(function() {
-                if ($(this).val() === ''){
-                    isValid = false;
-                }
-            });
-            $('.browser-default').each(function() {
-                if ($(this).val() === ""){
-                    isValid = false;
-                }
-            });
-            return isValid;
-        }
+        // function validateForm() {
+        //     var isValid = true;
+        //     $(".validate").each(function() {
+        //         if ($(this).val() === ""){
+        //             isValid = false;
+        //         }
+        //     });
+        //     $(".browser-default").each(function() {
+        //         if ($(this).val() === ""){
+        //             isValid = false;
+        //         }
+        //     });
+        //     return isValid;
+        // }
 
-//======================================================
+//=========================================================================
 // requires users to answer all questions
-//======================================================
-        if (validateForm() == true) {
-            // creates a new friend from the values submitted
-            var newUser = {
-                name: $('#name').val().trim(),
-                profilePic: $('#photo').val().trim(),
+//=========================================================================
+        //if (validateForm() == true) {
+            // grabs user input
+            var userInput = {
+                name: $("#name").val().trim(),
+                photo: $("#photo").val().trim(),
                 scores: [
-                    $('#q1').val(),
-                    $('#q2').val(),
-                    $('#q3').val(),
-                    $('#q4').val(),
-                    $('#q5').val(),
-                    $('#q6').val(),
-                    $('#q7').val(),
-                    $('#q8').val(),
-                    $('#q9').val(),
-                    $('#q10').val(),
+                    $("#q1").val(),
+                    $("#q2").val(),
+                    $("#q3").val(),
+                    $("#q4").val(),
+                    $("#q5").val(),
+                    $("#q6").val(),
+                    $("#q7").val(),
+                    $("#q8").val(),
+                    $("#q9").val(),
+                    $("#q10").val(),
                 ]
             };
+
+            $.post("/api/friends", userInput).done(function(data) {
+
             //Grabs current URL of website
-            var currentURL = window.location.origin;
+            //var currentURL = window.location.origin;
             //AJAX posts the data to friends API.
-            $.post(currentURL + "/api/friends", newUser, function(data) {
+            //$.post(currentURL + "/api/friends", userInput, function(data) {
                 //Grab the result from the AJAX post so that the best match's name and photo are displayed.
                 $("#matchName").text(data.name);
-                $("#matchPic").attr("src", data.profilePic);
+                $("#matchPhoto").attr("src", data.profilePic);
+            //});
+                // display modal
+                $(".large.modal").modal("show");
+                
+                //clear form after submission
+                $("#name").val("");
+                $("#photo").val("");
+                $("#q1").val("");
+                $("#q2").val("");
+                $("#q3").val("");
+                $("#q4").val("");
+                $("#q5").val("");
+                $("#q6").val("");
+                $("#q7").val("");
+                $("#q8").val("");
+                $("#q9").val("");
+                $("#q10").val("");
             });
-            // Show the modal with the best match
-            $('.large.modal').modal('show');
-            
-            //clear form after submission
-            $("#name").val("");
-            $("#photo").val("");
-            $("#q1").val("");
-            $("#q2").val("");
-            $("#q3").val("");
-            $("#q4").val("");
-            $("#q5").val("");
-            $("#q6").val("");
-            $("#q7").val("");
-            $("#q8").val("");
-            $("#q9").val("");
-            $("#q10").val("");
-        } else {
-            alert("Please answer all questions before submitting survey!")
-        }
-        // return false;
+        //} else {
+        //   alert("Please answer all questions before submitting survey!")
+        //}
     });
 });
 </script>

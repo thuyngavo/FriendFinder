@@ -10,6 +10,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
         <!-- Link SemanticUI CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+        
+        
         <!-- Link Stylesheet -->
         <link rel="stylesheet" href="styles.css">
     
@@ -187,62 +191,42 @@
 <!------------------------------------------------------------------------>    
 <!---------------modal structure to display result pop up----------------->
 <!------------------------------------------------------------------------>
-
-    <div class="ui modal" id=modaldiv>
-        <i class = "close icon"></i>
-        <div class="header">Best Match</div>
-            <!-- match name -->
-            <div class="content">
-                <div class="matchName" id="matchName"></div>
-            </div> 
-            <br> 
-            <!-- match photo -->
-            <div class="image content">
-                <img class="image">
-                    <div class="description">
-                        <img id="matchPhoto" src="" alt="Profile Image" width = 250px>
-                    </div>
-            <br> 
-            <!-- close button -->
-            <div class = "actions">
-                <div class = "ui button">Close</div>
-            </div>
-        </div>        
+    <div class="ui container">
+        <div class="ui modal" id="modaldiv">
+            <i class = "close icon"></i>
+            <div class="header">Best Match</div>
+                <!-- match name -->
+                <div class="content">
+                    <div class="matchName" id="matchName"></div>
+                </div> 
+                <br> 
+                <!-- match photo -->
+                <div class="image content">
+                    <img class="image">
+                        <div class="description">
+                            <img id="matchPhoto" src="" alt="Profile Image" width = 250px>
+                        </div>
+                <!-- <br>  -->
+                <!-- close button -->
+                <!-- <div class = "actions">
+                    <div class = "ui button">Close</div>
+                </div> -->
+            </div>        
+        </div>
     </div>
 
-    <!--
-    <div class="ui container">
-    <div class="ui modal" id=modal>
-        <i class="close icon"></i>
-        <div class="header">Best Match</div>
-            <div class="image content">
-              <div class="image">
-                    <img id="matchPhoto" src="" alt="Profile Image" width = 250px>
-              </div>
-              <div class="description">
-                    <h5 id="matchName"></h5>
-              </div>
-            </div>
-            <div class="actions">
-              <div class="ui button">Close</div>
-            </div>
-          </div>
-          </div>
-        -->
 <!------------------------------------------------------------------------>    
 <!------------ javascript to grab user input and send to server----------->
 <!------------------------------------------------------------------------>
 
 <script type="text/javascript">
+
 $(document).ready(function() {
-    
-    // hide modal
-    //$("#modal").modal("show");
 
     // on click function
-    $("#submitbtn").on("click", function() {
-        $("#modaldiv").modal("show");
-        //event.preventDefault();
+    $(".ui.animated.button").on("click", function(event) {
+        event.preventDefault();
+
         //form validation
         function validateForm() {
             var isValid = true;
@@ -281,19 +265,14 @@ $(document).ready(function() {
                 ]
             };
 
-            //$.post("/api/friends", userInput).done(function(data) {
+            $.post("/api/friends", userInput, function(data) {
 
-            //Grabs current URL of website
-            var currentURL = window.location.origin;
-            //AJAX posts the data to friends API.
-            $.post(currentURL + "/api/friends", userInput, function(data) {
-                //Grab the result from the AJAX post so that the best match's name and photo are displayed.
+                //Grab to displaybest name and photo for match
                 $("#matchName").text(data.name);
-                $("#matchPhoto").attr("src", data.profilePic);
-            //});
+                $("#matchPhoto").attr("src", data.photo);
+
                 // display modal
-                //$("#modal").modal("show");
-                //$(".ui.modal").modal("show");
+                $(".ui.modal").modal("show");
                 
                 //clear form after submission
                 $("#name").val("");
@@ -309,6 +288,7 @@ $(document).ready(function() {
                 $("#q9").val("");
                 $("#q10").val("");
             });
+            
         } else {
            alert("Please answer all questions before submitting survey!")
         }

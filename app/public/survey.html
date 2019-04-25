@@ -263,7 +263,7 @@
             ]
         };
             // Add user inputs to friends list
-        $.post("'/api/friends", userInput)
+        $.post("/api/friends", userInput)
             .done(function(data) {
                 // name and photo of match
                 $("#matchName").html(data.matchName);

@@ -7,8 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!--Link jQuery-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-    <!-- Link SemanticUI CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css" />
+    <!-- Link SemanticUI CSS
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css" /> -->
+
+    <!--Link Bootstrap -->
+      <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
     <!-- Link Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 
@@ -17,34 +24,19 @@
 </head>
 <body>
 
-  <div class="ui container" id="container">
-    <div class = "container">
-        <div class="ui placeholder segment">
-            <div class="ui center aligned segment">
-                <div class="ui icon header">
-                    <h1><i class="street view icon"></i>Friend Finder</h1><br>
-                    <p>Answer a few basic questions.</p>
-                    <p>Then find the friend with the greatest compatibility!</p><br>
-                </div>
-                <a href="/survey">
-                    <div class="ui animated button" tabindex="0">
-                        <div class="visible content">Take the Survery</div>
-                        <div class="hidden content">
-                            <i class="tasks icon"></i>
-                            <i class="right arrow icon"></i>
-                        </div>
-                    </div>
-                </a>
-            </div>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">Friend Finder</h1>
+            <hr class="my-4">
+            <p class="lead"><p>Answer a few basic questions.</p>
+            <p>Then find the friend with the greatest compatibility!</p><br>
+            <a class="btn btn-primary btn-lg" href="/survey" role="button">Take Survey</a>
         </div>
-            
+
         <div class="col s4">
             <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/thuyngavo/friendFinder" target= "_blank">GitHub Repo</a></p>
         </div>
     </div>
- </div>
-
-
-  
+      
 </body>
 </html>

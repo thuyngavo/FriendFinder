@@ -35,7 +35,7 @@ module.exports = function(app){
                 diff += Math.abs(friends[i].scores[I] - userResponses[I]);
             }
     
-                // match with the lowest difference 
+            // match with the lowest difference 
             if (diff < totalDifference) {    
                 totalDifference = diff;
                 matchName = friends[i].name;

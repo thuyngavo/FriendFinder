@@ -1,6 +1,9 @@
 # FriendFinder
 This is a compatibility-based "FriendFinder" application -- basically a dating app. 
 
+Visit the link below to visit the deployed application: 
+https://myfriendsfinderapp.herokuapp.com/
+
 # Contributors
 @thuyngavo
 

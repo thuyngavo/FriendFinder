@@ -245,6 +245,27 @@
     // onclick function
     $("#submitButton").on("click", function(event) {
         event.preventDefault();
+
+//      //form validation
+//      function validateForm() {
+//          var isValid = true;
+//          $('.validate').each(function() {
+//              if ($(this).val() === ''){
+//                  isValid = false;
+//              }
+//          });
+//
+//          $('.browser-default').each(function() {
+//              if ($(this).val() === ""){
+//                 isValid = false;
+//              }
+//          });
+//          return isValid;
+//      }
+//
+//      //if everything is filled
+//      if (validateForm() == true) {
+
         // grabs user input and stores in a variable
         var userInput = {
             name: $("#userName").val().trim(),
@@ -263,21 +284,33 @@
             ]
         };
             // Add user inputs to friends list
-        $.post("/api/friends", userInput)
-            .done(function(data) {
+        $.post("/api/friends", userInput).done(function(data) {
                 // name and photo of match
                 $("#matchName").html(data.matchName);
                 $("#matchPhoto").attr("src", data.matchPhoto);
-                
-                // PLEASE NOTE: 
-                // modal only appears when user decides to not answer 
-                //any questions and just clicks the submit button. 
-                //I still cannot figure out why the modal 
-                //does not show up when the form is filled out.
 
                 // show modal
                 $("#modal").modal("show");
-            });
+
+                //clear form after submission
+                $('#userName').val("");
+                $('#userPhoto').val("");
+                $('#q1').val("");
+                $('#q2').val("");
+                $('#q3').val("");
+                $('#q4').val("");
+                $('#q5').val("");
+                $('#q6').val("");
+                $('#q7').val("");
+                $('#q8').val("");
+                $('#q9').val("");
+                $('#q10').val("");
+
+            // } else {
+            //     alert("Please fill out ALL fields before submitting survey!")
+            // }
+
+        });
                 
     });
 </script>
